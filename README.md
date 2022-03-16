@@ -2,5 +2,6 @@
 
 Recommender Systems with MERN stack
 
-By team: 
-Shikhar Dhruv
+By group-11: 
+Shikhar 
+Dhruv 
