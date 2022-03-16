@@ -2,5 +2,5 @@
 
 Recommender Systems
 
-By: Shikhar Dhruv Kanishk
+By team: Shikhar Dhruv Kanishk
 
