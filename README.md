@@ -1,13 +1,9 @@
 # Major Project Collaboration
 
-Recommender Systems with MERN stack
+Recommender Systems
 
-<<<<<<< HEAD
-By group-11: Shikhar Dhruv Kanishk
-=======
 By team: 
 Shikhar 
 Dhruv 
 Kanishk
->>>>>>> master
 
