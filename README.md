@@ -2,7 +2,7 @@
 
 Recommender Systems
 
-By team: 
+By: 
 Shikhar 
 Dhruv 
 Kanishk
