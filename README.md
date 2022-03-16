@@ -2,4 +2,4 @@
 
 Recommender Systems with MERN stack
 
-By Group-11: Shikhar Dhruv Kanishk
+By team: Shikhar Dhruv Kanishk
