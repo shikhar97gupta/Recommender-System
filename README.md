@@ -2,12 +2,6 @@
 
 Recommender Systems with MERN stack
 
-<<<<<<< HEAD
-By team: Shikhar Dhruv Kanishk
-=======
 By team: 
-Shikhar
-Dhruv 
+Shikhar Dhruv
 Kanishk
-
->>>>>>> feature-1
