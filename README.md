@@ -2,7 +2,7 @@
 
 Recommender Systems
 
-By team: 
+By group-11: 
 Shikhar 
 Dhruv 
 Kanishk
