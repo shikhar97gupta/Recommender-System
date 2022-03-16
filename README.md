@@ -2,6 +2,7 @@
 
 Recommender Systems with MERN stack
 
-By group-11: 
+By: 
 Shikhar 
 Dhruv 
+Kanishk
