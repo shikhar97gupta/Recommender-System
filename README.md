@@ -2,5 +2,4 @@
 
 Recommender Systems
 
-By 
-Shikhar Gupta
+
