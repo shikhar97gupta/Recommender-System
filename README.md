@@ -2,4 +2,4 @@
 
 Recommender Systems
 
-By Shikhar
+By Shikhar, Dhruv and Kanishk
