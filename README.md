@@ -2,13 +2,7 @@
 
 Recommender Systems with MERN stack
 
-<<<<<<< HEAD
-By Group-11:
-Shikhar 
-Dhruv 
-=======
 By: Shikhar 
- 
+Dhruv
 Kanishk
->>>>>>> master
 
