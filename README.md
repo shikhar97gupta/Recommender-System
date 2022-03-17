@@ -3,6 +3,3 @@
 Recommender Systems with MERN stack
 
 By: Shikhar 
- 
-Kanishk
-
