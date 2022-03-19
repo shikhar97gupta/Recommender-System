@@ -4,7 +4,7 @@ import json
 import time
 import sys
 import os
-
+import RecommenderScript
 
 
 sys.path.append('CollaborativeFiltering/')
@@ -30,7 +30,7 @@ def get_movielensID_from_tmdbID(tmdbID):
 def get_tmdbID_from_movielensTD(ML_ID):
     link_df = pd.read_csv("ml-latest-small/links.csv")
     row = link_df[link_df["movieId"] == ML_ID]
-    print("-------------------row=", row)
+    #print("-------------------row=", row)
     if (len(row["tmdbId"]) == 0):
         return -1
     try:
@@ -68,15 +68,15 @@ def add_user_to_dataset(userID, user_ratings):
 def reset_files():
     reset_ratings = pd.read_csv("reset_ratings.csv")
     reset_ratings.to_csv("ml-latest-small/ratings.csv", index=False)
-    print("Ratings file reset")
+    #print("Ratings file reset")
 
 
-def colaborativeFiltering_ItemBased(user_ratings, userID="672"):
+def colaborativeFiltering_ItemBased(userID="672"):# user_ratings
     # the ids returned are from the movielens dataset
-    recommendatons_movieLens = runItemBasedColaborativeFiltering(testSubject=str(userID))
-    print(recommendatons_movieLens)
+    recommendatons_movieLens = RecommenderScript.runItemBasedColaborativeFiltering(testSubject=int(userID))
+    #print(recommendatons_movieLens)
     recommendations_tmdb = []
-    for recommendation in recommendatons_movieLens:
+    for recommendation in recommendatons_movieLens[-21:]:
         recommendations_tmdb.append(get_tmdbID_from_movielensTD(int(recommendation)))
     return recommendations_tmdb
 
@@ -89,18 +89,18 @@ def index():
 @app.route("/recommendations/itemcolaborativefiltering", methods=["POST"])
 def item_colaborativefiltering():
     userID = request.json["userID"]
-    user_ratings = request.json["ratings"]
-    recommender_type = request.json["recommender_type"]
+    #user_ratings = request.json["ratings"]
+    #recommender_type = request.json["recommender_type"]
     print("user id = ", userID)
-    print("user_ratings = ", user_ratings)
-    print("recommender_type = ", recommender_type)
-    user_ratings = json.loads(user_ratings)
-    user_ratings = counvert_ratings_to_tuple_format(user_ratings)
-    print("user Rating in tuple format = ", user_ratings)
-    userID = add_user_to_dataset(userID, user_ratings)
-    recommendations = colaborativeFiltering_ItemBased(user_ratings, userID)
-    print(recommendations)
-    reset_files()
+    #print("user_ratings = ", user_ratings)
+    #print("recommender_type = ", recommender_type)
+    #user_ratings = json.loads(user_ratings)
+    #user_ratings = counvert_ratings_to_tuple_format(user_ratings)
+    #print("user Rating in tuple format = ", user_ratings)
+    #userID = add_user_to_dataset(userID, user_ratings)
+    recommendations = colaborativeFiltering_ItemBased(userID) #user_ratings
+    #print(recommendations)
+    #reset_files()
     return jsonify(recommendations)
 
 
