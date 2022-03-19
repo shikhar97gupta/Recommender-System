@@ -4,7 +4,7 @@ import json
 import time
 import sys
 import os
-import RecommenderScript
+import RecommenderScriptFinal
 
 
 sys.path.append('CollaborativeFiltering/')

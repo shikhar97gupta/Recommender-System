@@ -5,10 +5,11 @@ from utils import quickselect
 from utils import quicksort
 from utils import binarySearch
 
+
+'''
 #corr = pd.read_csv("D:\Kaggle\VS\Git\Recommender-System\Recommendercorr.csv")
 movie_user_rating_pivot = pd.read_csv("D:\Kaggle\VS\Git\Recommender-System\RecommenderPivot.csv")
 print(movie_user_rating_pivot.head())
-'''
 movie_ids = movie_user_rating_pivot.columns[1:]
 movie_ids_list = list(map(int,movie_ids))
 corr = list(corr.values)
