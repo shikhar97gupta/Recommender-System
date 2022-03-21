@@ -1,3 +1,4 @@
+from wsgiref import headers
 from flask import Flask, request, jsonify
 import pandas as pd
 import json
@@ -40,12 +41,12 @@ def get_tmdbID_from_movielensTD(ML_ID):
 
 
 
-def counvert_ratings_to_tuple_format(user_ratings):
+def counvert_ratings_to_tuple_format(userID, user_ratings):
     # given the ratings in form of lists [tmdbID, rating] --> [ML_ID, ratind]
     temp_ratings = []
     for [tmdbID, rating] in user_ratings:
         # print("rating = ", rating)
-        temp_ratings.append((get_movielensID_from_tmdbID(tmdbID), rating))
+        temp_ratings.append([userID, get_movielensID_from_tmdbID(tmdbID), rating])
     return temp_ratings
 
 
@@ -71,9 +72,9 @@ def reset_files():
     #print("Ratings file reset")
 
 
-def colaborativeFiltering_ItemBased(userID="672"):# user_ratings
+def colaborativeFiltering_ItemBased(userID, user_ratings):# user_ratings
     # the ids returned are from the movielens dataset
-    recommendatons_movieLens = RecommenderScriptFinal.runItemBasedColaborativeFiltering(testSubject=int(userID))
+    recommendatons_movieLens = RecommenderScriptFinal.runItemBasedColaborativeFiltering(testSubject=userID, curr_user_ratings=user_ratings)
     #print(recommendatons_movieLens)
     recommendations_tmdb = []
     for recommendation in recommendatons_movieLens[-21:]:
@@ -89,16 +90,17 @@ def index():
 @app.route("/recommendations/itemcolaborativefiltering", methods=["POST"])
 def item_colaborativefiltering():
     userID = request.json["userID"]
-    #user_ratings = request.json["ratings"]
+    user_ratings = request.json["ratings"]
     #recommender_type = request.json["recommender_type"]
-    print("user id = ", userID)
+    #print("user id = ", userID)
     #print("user_ratings = ", user_ratings)
     #print("recommender_type = ", recommender_type)
-    #user_ratings = json.loads(user_ratings)
-    #user_ratings = counvert_ratings_to_tuple_format(user_ratings)
+    user_ratings = json.loads(user_ratings)
+    user_ratings = counvert_ratings_to_tuple_format(userID, user_ratings)
     #print("user Rating in tuple format = ", user_ratings)
     #userID = add_user_to_dataset(userID, user_ratings)
-    recommendations = colaborativeFiltering_ItemBased(userID) #user_ratings
+    pd.DataFrame(user_ratings).to_csv('ml-latest-small/added_ratings.csv', header = False, mode='a', index = False)
+    recommendations = colaborativeFiltering_ItemBased(userID, user_ratings) #user_ratings
     #print(recommendations)
     #reset_files()
     return jsonify(recommendations)
