@@ -72,9 +72,9 @@ def reset_files():
     #print("Ratings file reset")
 
 
-def colaborativeFiltering_ItemBased(userID, user_ratings):# user_ratings
+def colaborativeFiltering_ItemBased(userID):# user_ratings
     # the ids returned are from the movielens dataset
-    recommendatons_movieLens = RecommenderScriptFinal.runItemBasedColaborativeFiltering(testSubject=userID, curr_user_ratings=user_ratings)
+    recommendatons_movieLens = RecommenderScriptFinal.runItemBasedColaborativeFiltering(testSubject=userID)
     #print(recommendatons_movieLens)
     recommendations_tmdb = []
     for recommendation in recommendatons_movieLens[-21:]:
@@ -100,7 +100,7 @@ def item_colaborativefiltering():
     #print("user Rating in tuple format = ", user_ratings)
     #userID = add_user_to_dataset(userID, user_ratings)
     pd.DataFrame(user_ratings).to_csv('ml-latest-small/added_ratings.csv', header = False, mode='a', index = False)
-    recommendations = colaborativeFiltering_ItemBased(userID, user_ratings) #user_ratings
+    recommendations = colaborativeFiltering_ItemBased(userID) #user_ratings
     #print(recommendations)
     #reset_files()
     return jsonify(recommendations)

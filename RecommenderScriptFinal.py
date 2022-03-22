@@ -25,6 +25,14 @@ combine_movie_rating = pd.merge(rating_df, movie_df, on='movieId')
 columns = ['timestamp', 'genres', 'title']
 user_movie_rating = combine_movie_rating.drop(columns, axis=1)
 
+def removeDuplicates(indices, recomm):
+    for index in indices:
+        try:
+            recomm.remove(index)
+        except ValueError:
+            pass
+    return recomm
+
 def add_added_ratings(user_movie_rating):
     path_added_ratings = 'ml-latest-small/added_ratings.csv'
     added_ratings_df = pd.read_csv(path_added_ratings)
@@ -72,12 +80,14 @@ def runFullItem(corr, movie_ids_list, indices):
     movieIds = movieIds[:i1]
     return movieIds
 
-def runItemBasedColaborativeFiltering(testSubject, curr_user_ratings, user_movie_rating=user_movie_rating):
+def runItemBasedColaborativeFiltering(testSubject, user_movie_rating=user_movie_rating):
     user_movie_rating = add_added_ratings(user_movie_rating)
     user_movie_rating['userId'] =  user_movie_rating['userId'].astype(str)
     corr, movie_ids_list, rating_pivot = data(user_movie_rating)
     user_data = rating_pivot.loc[testSubject]
     indices = list(user_data[1:].index[user_data[1:]>0])
-    return runFullItem(corr, movie_ids_list, indices)
+    recomm = runFullItem(corr, movie_ids_list, indices)
+    return removeDuplicates(indices, recomm)
+    
 
 #print(runItemBasedColaborativeFiltering(1)[-21:])
