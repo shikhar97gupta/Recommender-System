@@ -5,7 +5,6 @@
 import numpy as np
 import pandas as pd
 import math
-import matplotlib.pyplot as plt
 import demoMF 
 from utils import quickselect
 from utils import quicksort
@@ -87,7 +86,10 @@ def runItemBasedColaborativeFiltering(testSubject, user_movie_rating=user_movie_
     user_data = rating_pivot.loc[testSubject]
     indices = list(user_data[1:].index[user_data[1:]>0])
     recomm = runFullItem(corr, movie_ids_list, indices)
-    return removeDuplicates(indices, recomm)
+    print("Recomm: ",recomm)
+    processed_recomm = removeDuplicates(indices, recomm)
+    print("Processed recomm: ",processed_recomm)
+    return processed_recomm
     
 
 #print(runItemBasedColaborativeFiltering(1)[-21:])
