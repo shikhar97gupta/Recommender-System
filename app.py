@@ -96,6 +96,13 @@ def item_colaborativefiltering():
     #print("user_ratings = ", user_ratings)
     #print("recommender_type = ", recommender_type)
     user_ratings = json.loads(user_ratings)
+    ur = []
+    for x in user_ratings:
+        l=[]
+        l.append((x[0]))
+        l.append(x[1])
+        ur.append(l)
+    user_ratings = ur
     user_ratings = counvert_ratings_to_tuple_format(userID, user_ratings)
     #print("user Rating in tuple format = ", user_ratings)
     #userID = add_user_to_dataset(userID, user_ratings)
