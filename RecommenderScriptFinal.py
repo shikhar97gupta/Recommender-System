@@ -26,10 +26,11 @@ user_movie_rating = combine_movie_rating.drop(columns, axis=1)
 
 def removeDuplicates(indices, recomm):
     for index in indices:
-        try:
-            recomm.remove(index)
-        except ValueError:
-            pass
+        while True:
+            try:
+                recomm.remove(index)
+            except ValueError:
+                break
     return recomm
 
 def add_added_ratings(user_movie_rating):
