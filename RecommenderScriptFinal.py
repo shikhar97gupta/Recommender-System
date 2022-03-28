@@ -5,10 +5,13 @@
 import numpy as np
 import pandas as pd
 import math
-import demoMF 
+#import demoMF 
 from utils import quickselect
 from utils import quicksort
 from utils import binarySearch
+from sklearn.utils.extmath import randomized_svd
+
+
 #import dask.dataframe as dd
 #from sklearn.utils.extmath import randomized_svd
 #from sklearn.decomposition import TruncatedSVD
@@ -25,12 +28,12 @@ columns = ['timestamp', 'genres', 'title']
 user_movie_rating = combine_movie_rating.drop(columns, axis=1)
 
 def removeDuplicates(indices, recomm):
+    recomm = list(set(recomm))
     for index in indices:
-        while True:
-            try:
-                recomm.remove(index)
-            except ValueError:
-                break
+        try:
+            recomm.remove(index)
+        except ValueError:
+            pass
     return recomm
 
 def add_added_ratings(user_movie_rating):
@@ -43,12 +46,15 @@ def data(user_movie_rating):
     user_movie_rating.drop_duplicates(['userId','movieId'], keep='last', inplace=True)
     rating_pivot = user_movie_rating.pivot(index = 'userId', columns = 'movieId', values = 'rating').fillna(0)
     X = rating_pivot.values
-    objMF = demoMF.ExplicitMF(X,20,0.1,0.1,verbose=True)
-    objMF.train(5)
-    U = objMF.user_vecs
-    V = objMF.item_vecs
-    V.shape
-    matrix = V
+    
+    #U = objMF.user_vecs
+    #V = objMF.item_vecs
+    #V.shape
+    U, Sigma, VT = randomized_svd(X, 
+                              n_components=20,
+                              n_iter=5,
+                              random_state=None)
+    matrix = VT.T
     print("Matrix: ", matrix.shape)
     corr = np.corrcoef(matrix)
     movie_ids = rating_pivot.columns
