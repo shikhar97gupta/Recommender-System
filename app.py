@@ -74,7 +74,8 @@ def reset_files():
 
 def colaborativeFiltering_ItemBased(userID):# user_ratings
     # the ids returned are from the movielens dataset
-    recommendatons_movieLens = RecommenderScriptFinal.runItemBasedColaborativeFiltering(testSubject=userID)
+    recommendatons_movieLens, movies = RecommenderScriptFinal.runItemBasedColaborativeFiltering(testSubject=userID)
+    print(movies)
     #print(recommendatons_movieLens)
     recommendations_tmdb = []
     for recommendation in recommendatons_movieLens[-21:]:

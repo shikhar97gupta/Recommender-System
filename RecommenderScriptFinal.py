@@ -27,6 +27,11 @@ combine_movie_rating = pd.merge(rating_df, movie_df, on='movieId')
 columns = ['timestamp', 'genres', 'title']
 user_movie_rating = combine_movie_rating.drop(columns, axis=1)
 
+columns1 = ['timestamp', 'genres', 'rating']
+user_movie_title = combine_movie_rating.drop(columns1, axis=1)
+user_movie_title.drop_duplicates(['movieId'], keep='last', inplace=True)
+print(user_movie_title)
+
 def removeDuplicates(indices, recomm):
     recomm = list(set(recomm))
     for index in indices:
@@ -51,8 +56,8 @@ def data(user_movie_rating):
     #V = objMF.item_vecs
     #V.shape
     U, Sigma, VT = randomized_svd(X, 
-                              n_components=20,
-                              n_iter=5,
+                              n_components=10,
+                              n_iter=15,
                               random_state=None)
     matrix = VT.T
     print("Matrix: ", matrix.shape)
@@ -96,7 +101,8 @@ def runItemBasedColaborativeFiltering(testSubject, user_movie_rating=user_movie_
     print("Recomm: ",recomm)
     processed_recomm = removeDuplicates(indices, recomm)
     print("Processed recomm: ",processed_recomm)
-    return processed_recomm
+    movies = user_movie_title['title'][user_movie_title['movieId'].isin(processed_recomm)] 
+    return processed_recomm, movies
     
 
 #print(runItemBasedColaborativeFiltering(1)[-21:])
