@@ -1,5 +1,5 @@
 # Major Project Collaboration
 
-Recommender Systems with MERN stack
+Recommender System with MERN stack
 
 By: Shikhar, Dhruv and Kanishk
