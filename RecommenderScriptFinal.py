@@ -60,6 +60,9 @@ def data(user_movie_rating):
                               n_iter=15,
                               random_state=None)
     matrix = VT.T
+    se = np.power(X - np.dot(np.dot(U,np.diag(Sigma)),VT),2)
+    rmse = np.sqrt(np.mean(se))
+    print("RMSE: ", rmse)
     print("Matrix: ", matrix.shape)
     corr = np.corrcoef(matrix)
     movie_ids = rating_pivot.columns
